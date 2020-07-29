@@ -1,34 +1,26 @@
 import React, { Component } from "react";
-import Axios from "axios";
+import Counter from "./Counter";
 
 class App extends Component {
   state = {
-    data: {
-      userId: null,
-      id: null,
-      title: null,
-      completed: null,
-    },
+    number: 0,
   };
 
-  onClick = async () => {
-    const { data } = this.state;
-    let resp = await Axios.get("https://jsonplaceholder.typicode.com/todos/1");
-    console.log(resp);
+  add = () => {
     this.setState({
-      data: { data, ...resp.data },
+      number: this.state.number + 1,
+    });
+  };
+  minus = () => {
+    this.setState({
+      number: this.state.number - 1,
     });
   };
 
   render() {
-    const { data } = this.state;
     return (
       <div>
-        <div>아이디 :{data.userId}</div>
-        <div>제목 :{data.title}</div>
-        <hr />
-        <h1>클릭하세요</h1>
-        <button onClick={this.onClick}>클릭</button>
+        <Counter number={this.state.number} add={this.add} minus={this.minus} />
       </div>
     );
   }
